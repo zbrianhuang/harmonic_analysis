@@ -15,6 +15,5 @@ def idft(X):
         for k in range(N):
             x[n] += X[k] * cmath.exp(2j * cmath.pi * k * n / N)
         x[n] /= N
-    # The result should be real if the input was real, so we return the real part.
-    # Small imaginary parts from floating point errors are discarded.
+    
     return [val.real for val in x]
