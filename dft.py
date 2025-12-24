@@ -1,27 +1,20 @@
-import numpy as np
+import cmath
 
-def DFT(y):
-    N = len(y)
-    dft_result = np.zeros(N, dtype=np.complex128)
-
+def dft(x):
+    N = len(x)
+    X = [complex(0)] * N
     for k in range(N):
-        summation = 0
         for n in range(N):
-            w = complex(0,1) * -2 * np.pi * k * n / N
-            summation += y[n] * np.exp( w)
-        dft_result[k] = summation
+            X[k] += x[n] * cmath.exp(-2j * cmath.pi * k * n / N)
+    return X
 
-    return dft_result
-
-def IDFT(Y):
-    N = len(Y)
-    idft_result = np.zeros(N, dtype=np.float64)
-
+def idft(X):
+    N = len(X)
+    x = [complex(0)] * N
     for n in range(N):
-        summation = 0
         for k in range(N):
-            w = complex(0,1) * 2 * np.pi * k * n / N
-            summation += Y[k] * np.exp( w)
-        idft_result[n] = summation.real / N
-
-    return idft_result
+            x[n] += X[k] * cmath.exp(2j * cmath.pi * k * n / N)
+        x[n] /= N
+    # The result should be real if the input was real, so we return the real part.
+    # Small imaginary parts from floating point errors are discarded.
+    return [val.real for val in x]
