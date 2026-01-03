@@ -1,9 +1,6 @@
 import numpy as np
 
 def DFT(y):
-    """
-    Compute the Discrete Fourier Transform of a 1D array y.
-    """
     N = len(y)
     # Create an array to store the DFT results (complex numbers)
     dft_result = np.zeros(N, dtype=np.complex128)
