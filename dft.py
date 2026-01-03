@@ -1,4 +1,4 @@
-import numpy as np
+import cmath
 
 def DFT(y):
     N = len(y)
@@ -8,12 +8,16 @@ def DFT(y):
 
     # Iterate over each frequency bin k
     for k in range(N):
-        # Calculate the DFT for frequency k
-        summation = 0
         for n in range(N):
-            w = complex(0,1) * -2 * np.pi * k * n / N
-            summation += y[n] * np.exp( w)
-        dft_result[k] = summation
+            X[k] += x[n] * cmath.exp(-2j * cmath.pi * k * n / N)
+    return X
 
-    return dft_result
-
+def idft(X):
+    N = len(X)
+    x = [complex(0)] * N
+    for n in range(N):
+        for k in range(N):
+            x[n] += X[k] * cmath.exp(2j * cmath.pi * k * n / N)
+        x[n] /= N
+    
+    return [val.real for val in x]
