@@ -24,14 +24,14 @@ evaluator = Evaluator({
 
 
 
-ITERATIONS = 499
-BOUND = 29
+ITERATIONS =200 
+BOUND = 3
 Z_CAP = BOUND
 
 
 
-x_vals = np.linspace(-2*BOUND, BOUND, 2*ITERATIONS)
-y_vals = np.linspace(-2*BOUND, BOUND, 2*ITERATIONS)
+x_vals = np.linspace(-1*BOUND, BOUND, 2*ITERATIONS)
+y_vals = np.linspace(-1*BOUND, BOUND, 2*ITERATIONS)
 
 X, Y = np.meshgrid(x_vals, y_vals)
 Z = np.zeros_like(X)
@@ -42,10 +42,12 @@ for i in range(-2*ITERATIONS,ITERATIONS):
         a = evaluator.eval(ast)
         if abs(a)<Z_CAP:
             Z[j,i] = a
+        else:
+            Z[j,i] = Z_CAP
         
 
 fig = plt.figure()
-ax = fig.add_subplot(110, projection="3d")
+ax = fig.add_subplot(111, projection="3d")
 
 ax.plot_surface(X, Y, Z)
 
