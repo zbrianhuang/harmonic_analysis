@@ -2,22 +2,20 @@ import cmath
 
 def DFT(y):
     N = len(y)
-    # Create an array to store the DFT results (complex numbers)
-    dft_result = np.zeros(N, dtype=np.complex128)
+    X = [complex(0)] * N  # initialize output
 
-
-    # Iterate over each frequency bin k
     for k in range(N):
         for n in range(N):
-            X[k] += x[n] * cmath.exp(-2j * cmath.pi * k * n / N)
+            X[k] += y[n] * cmath.exp(-2j * cmath.pi * k * n / N)
     return X
 
-def idft(X):
+def IDFT(X):
     N = len(X)
     x = [complex(0)] * N
+
     for n in range(N):
         for k in range(N):
             x[n] += X[k] * cmath.exp(2j * cmath.pi * k * n / N)
         x[n] /= N
-    
-    return [val.real for val in x]
+
+    return x  # keep complex; caller can take .real if desired
